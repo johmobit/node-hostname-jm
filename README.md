@@ -13,7 +13,7 @@ The `node-hostname` application has been modernized from a single-server "baseme
 **Addressing the Issues:**
 
 - **Slowness at Peak Hours:** Solved via Horizontal Scaling (3 replicas) and container resource limits.
-- **Downtime (Power Cuts):** Solved by using Google Kubernetes Engine (GKE) across multiple availability zones.
+- **Downtime (Power Cuts):** Solved by using Google Kubernetes Engine (GKE) with the possibility of running across multiple availability zones.
 - **Developer Anxiety:** Solved by Containerization, ensuring the environment is identical from local development to production.
 
 ---
@@ -42,8 +42,9 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install --only=production
 COPY . .
+ENV PORT=8080
 EXPOSE 8080
-CMD [ "node", "index.js" ]
+CMD [ "npm", "start" ]
 ```
 
 ### B. Registry Strategy
