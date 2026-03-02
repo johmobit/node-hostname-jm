@@ -12,6 +12,9 @@ RUN npm install --only=production
 COPY . .
 
 # App runs on 8080 by default in many cloud setups
+ENV PORT=8080
 EXPOSE 8080
 
-CMD [ "node", "index.js" ]
+USER node
+
+CMD [ "npm", "start" ]
