@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-hostname-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: node-hostname
+  template:
+    metadata:
+      labels:
+        app: node-hostname
+    spec:
+      containers:
+      - name: node-hostname
+        image: eu-north1-docker.pkg.dev/labb-488916/labb-repo/node-hostname:v4
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-hostname-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: node-hostname
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
